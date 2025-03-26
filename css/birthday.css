@@ -1,0 +1,731 @@
+* {
+    will-change: transform, opacity;
+    backface-visibility: hidden;
+}
+
+:root {
+    --primary: #E91E63;
+    --secondary: #00BCD4;
+    --accent: #FF9800;
+    --text: #212121;
+    --bg: #F8F9FA;
+    --card-bg: white;
+    --form-bg: #FFFFFF;
+    --error: #F44336;
+    --success: #4CAF50;
+    --save-btn: #388E3C;
+    --text-on-primary: #FFFFFF;
+    --text-on-secondary: #FFFFFF;
+    --text-on-accent: #212121;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background: var(--bg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: radial-gradient(circle at 10% 20%, rgba(233, 30, 99, 0.1) 0%, rgba(0, 188, 212, 0.1) 90%);
+}
+
+.birthday-card {
+    background: var(--card-bg);
+    border-radius: 24px;
+    width: 100%;
+    max-width: 600px;
+    padding: 40px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    transform: translate3d(0, 0, 0);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+
+.birthday-card:hover {
+    transform: translate3d(0, -5px, 0);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+}
+
+.birthday-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 8px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+}
+
+.birthday-display {
+    display: none;
+    text-align: center;
+    margin-bottom: 30px;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translate3d(0, 20px, 0); }
+    to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+.photo-frame {
+    width: 220px;
+    height: 220px;
+    margin: 0 auto 25px;
+    border-radius: 50%;
+    padding: 10px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    position: relative;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform: translateZ(0);
+}
+
+.photo-frame:hover {
+    transform: scale3d(1.05, 1.05, 1) rotate(5deg);
+}
+
+.birthday-pic {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid white;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transform: translateZ(0);
+}
+
+.loading-spinner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    width: 50px;
+    height: 50px;
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: var(--secondary);
+    animation: spin 1.2s linear infinite;
+    display: none;
+    transform: translateZ(0);
+}
+
+@keyframes spin {
+    to { transform: translate3d(-50%, -50%, 0) rotate(360deg); }
+}
+
+.birthday-title {
+    font-size: 2.5rem;
+    color: var(--text);
+    margin: 20px 0 10px;
+    font-weight: 700;
+    font-family: 'Dancing Script', cursive;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.birthday-message {
+    font-size: 1.2rem;
+    color: var(--text);
+    margin: 25px 0;
+    line-height: 1.7;
+    position: relative;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transform: translateZ(0);
+}
+
+.birthday-message::before {
+    content: '"';
+    font-size: 4rem;
+    position: absolute;
+    top: -20px;
+    left: 10px;
+    color: rgba(233, 30, 99, 0.2);
+    font-family: serif;
+    line-height: 1;
+}
+
+.save-card-btn {
+    background: linear-gradient(45deg, var(--save-btn), #2E7D32);
+    color: var(--text-on-primary);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 20px;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transform: translateZ(0);
+}
+
+.save-card-btn:hover {
+    transform: translate3d(0, -2px, 0);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: var(--primary);
+    opacity: 0;
+    z-index: 10;
+    animation: confettiFall var(--duration) linear forwards;
+    transform: translateZ(0);
+}
+
+@keyframes confettiFall {
+    0% { transform: translate3d(0, 0, 0) rotate(0deg); opacity: 1; }
+    100% { transform: translate3d(var(--random-x), 500px, 0) rotate(360deg); opacity: 0; }
+}
+
+.customize-form {
+    display: block;
+    animation: fadeIn 0.5s ease;
+    background-color: var(--form-bg);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(233, 30, 99, 0.2);
+    transform: translateZ(0);
+}
+
+.customize-form::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, 
+        #E91E63, #00BCD4, #FF9800, #9C27B0, #3F51B5);
+    background-size: 300% 300%;
+    animation: gradientBG 3s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.form-header {
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.form-header h3 {
+    font-size: 1.8rem;
+    color: var(--text);
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+}
+
+.form-header h3::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
+    border-radius: 3px;
+}
+
+.form-header::before {
+    content: "🎉";
+    position: absolute;
+    font-size: 2rem;
+    left: 20px;
+    top: -15px;
+    transform: rotate(-20deg);
+    z-index: 1;
+}
+
+.form-header::after {
+    content: "🎂";
+    position: absolute;
+    font-size: 2rem;
+    right: 20px;
+    top: -15px;
+    transform: rotate(15deg);
+    z-index: 1;
+}
+
+.birthday-element {
+    position: absolute;
+    font-size: 1.2rem;
+    opacity: 0.7;
+    z-index: 0;
+    animation: float 8s infinite linear;
+    transform: translateZ(0);
+}
+
+@keyframes float {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -20px, 0); }
+}
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: 600;
+    color: var(--text);
+    font-size: 1rem;
+}
+
+input, select {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid #BDBDBD;
+    border-radius: 12px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.8);
+    color: var(--text);
+    transform: translateZ(0);
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(233, 30, 99, 0.2);
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23E91E63' fill-opacity='0.1' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+input.error {
+    border-color: var(--error);
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translate3d(0, 0, 0); }
+    20%, 60% { transform: translate3d(-5px, 0, 0); }
+    40%, 80% { transform: translate3d(5px, 0, 0); }
+}
+
+.error-message {
+    color: var(--error);
+    font-size: 0.85rem;
+    margin-top: 8px;
+    display: none;
+    animation: fadeIn 0.3s ease;
+    font-weight: 600;
+}
+
+.form-actions {
+    margin-top: 40px;
+}
+
+button {
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: var(--text-on-primary);
+    border: none;
+    padding: 16px 30px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    font-size: 1.1rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+}
+
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+button:hover {
+    transform: translate3d(0, -3px, 0);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+#generateBtn:hover {
+    background: linear-gradient(45deg, #E91E63, #00BCD4, #FF9800);
+    background-size: 200% 200%;
+    animation: gradientBG 1.5s ease infinite;
+}
+
+button:hover::before {
+    left: 100%;
+}
+
+button:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.share-section {
+    display: none;
+    margin-top: 30px;
+    animation: fadeIn 0.5s ease;
+}
+
+.share-url-container {
+    margin-bottom: 25px;
+    background: rgba(255, 255, 255, 0.7);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    position: relative;
+    transform: translateZ(0);
+}
+
+.info-button {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    background: #f0f0f0;
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.3s ease;
+    transform: translateZ(0);
+}
+
+.info-button:hover {
+    background: var(--secondary);
+    color: white;
+}
+
+.info-tooltip {
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 250px;
+    z-index: 100;
+    display: none;
+    animation: fadeIn 0.3s ease;
+    transform: translateZ(0);
+}
+
+.info-tooltip::before {
+    content: '';
+    position: absolute;
+    top: -8px;
+    right: 15px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid white;
+}
+
+.info-tooltip p {
+    margin: 0 0 10px 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: var(--text);
+}
+
+.share-url-label {
+    font-weight: 600;
+    margin-bottom: 12px;
+    display: block;
+    color: var(--text);
+    font-size: 1.1rem;
+}
+
+.share-url-value {
+    word-break: break-all;
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    transition: all 0.3s ease;
+    color: var(--text);
+}
+
+.share-url-group {
+    display: flex;
+    gap: 15px;
+}
+
+.copy-btn {
+    background: linear-gradient(45deg, #3F51B5, #303F9F);
+    flex: 1;
+    color: white;
+}
+
+.back-btn {
+    background: linear-gradient(45deg, var(--accent), #FFB347);
+    color: var(--text-on-accent);
+}
+
+.success-message {
+    display: none;
+    background-color: var(--success);
+    color: white;
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-top: 15px;
+    text-align: center;
+    animation: fadeIn 0.3s ease;
+}
+
+.balloon {
+    position: absolute;
+    width: 40px;
+    height: 50px;
+    background: var(--primary);
+    border-radius: 50%;
+    opacity: 0.7;
+    z-index: -1;
+    animation: float 15s infinite linear;
+    transform: translateZ(0);
+}
+
+.balloon::before {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 100px;
+    background: #ccc;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.how-it-works-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: #f0f0f0;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #666;
+    transition: all 0.3s ease;
+    z-index: 10;
+    transform: translateZ(0);
+}
+
+.how-it-works-btn:hover {
+    background: var(--primary);
+    color: white;
+}
+
+.how-it-works-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.how-it-works-modal.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.how-it-works-content {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    transform: translate3d(0, 20px, 0);
+    transition: transform 0.3s ease;
+}
+
+.how-it-works-content h3 {
+    color: var(--primary);
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+
+.music-control {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    transform: translateZ(0);
+}
+
+.music-control:hover {
+    transform: scale(1.1);
+}
+
+.message-preview {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px dashed var(--primary);
+    border-radius: 12px;
+    padding: 15px;
+    margin-top: 10px;
+    min-height: 100px;
+    max-height: 200px;
+    overflow-y: auto;
+    transition: all 0.3s ease;
+    line-height: 1.6;
+    color: var(--text);
+    animation: fadeIn 0.3s ease;
+}
+
+.message-preview::before {
+    content: "✉️";
+    float: right;
+    font-size: 1.5rem;
+    opacity: 0.3;
+}
+
+@media (max-width: 600px) {
+    .birthday-card {
+        padding: 25px;
+        width: 90vw;
+        margin: 20px auto;
+    }
+    
+    .birthday-title {
+        font-size: 2rem;
+    }
+    
+    .photo-frame {
+        width: 180px;
+        height: 180px;
+    }
+    
+    .form-header::before,
+    .form-header::after {
+        font-size: 1.5rem;
+    }
+    
+    .info-tooltip {
+        width: 200px;
+        right: -10px;
+    }
+
+    .birthday-message {
+        font-size: 1rem;
+        padding: 15px;
+    }
+
+    .how-it-works-content::before {
+        font-size: 3rem;
+        right: 20px;
+        bottom: 20px;
+    }
+
+    .music-control {
+        width: 40px;
+        height: 40px;
+        bottom: 15px;
+        right: 15px;
+    }
+}
+
+.hidden-for-save {
+    position: absolute;
+    left: -9999px;
+    top: -9999px;
+    visibility: hidden;
+}
+
+.save-container {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    background: #FFD1DC;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    text-align: center;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.save-container .photo-frame {
+    margin: 0 auto 25px;
+    width: 220px;
+    height: 220px;
+}
+
+.signature {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1rem;
+    color: #555;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px dashed #E91E63;
+}
