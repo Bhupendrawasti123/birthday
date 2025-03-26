@@ -1,0 +1,31 @@
+{
+    "wishes": [
+        {
+            "id": 0,
+            "title": "Adventure Theme",
+            "message": "May your birthday be the start of a year filled with wonderful adventures and exciting journeys! Wishing you happiness in all your endeavors."
+        },
+        {
+            "id": 1,
+            "title": "Joy Theme",
+            "message": "Wishing you a birthday overflowing with happiness, laughter, and joy that lasts throughout the coming year! May all your dreams come true."
+        },
+        {
+            "id": 2,
+            "title": "Success Theme",
+            "message": "May your birthday mark the beginning of your most successful year yet! Wishing you achievements, prosperity, and fulfillment in all you do."
+        },
+        {
+            "id": 3,
+            "title": "Friendship Theme",
+            "message": "On your special day, I want you to know how much you mean to me. Wishing you a birthday as wonderful as the friendship we share!"
+        },
+        {
+            "id": 4,
+            "title": "Love Theme",
+            "message": "Happy birthday to someone who makes my world brighter every day! May your birthday be as special and beautiful as you are to me."
+        }
+    ],
+    "defaultPic": "https://i.imgur.com/JQWUQfZ.jpg",
+    "musicUrl": "https://bhupendrawasti123.github.io/bhupendra/media/birthday.mp3"
+}
