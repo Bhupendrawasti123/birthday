@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Wishes Creator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/birthday.css">
+</head>
+<body>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    <div class="balloon"></div>
+    
+    <button class="how-it-works-btn" id="howItWorksBtn">
+        <i class="fas fa-info"></i>
+    </button>
+
+    <div class="birthday-card">
+        <div class="birthday-display" id="birthdayDisplay">
+            <div class="photo-frame">
+                <div class="loading-spinner" id="loadingSpinner"></div>
+                <img src="" alt="" class="birthday-pic" id="birthdayPic">
+            </div>
+            <h1 class="birthday-title">Happy Birthday <span id="birthdayName"></span>!</h1>
+            <p class="birthday-message" id="birthdayMessage"></p>
+            <button class="save-card-btn" id="saveCardBtn">
+                <i class="fas fa-download"></i> Save Card as Image
+            </button>
+        </div>
+
+        <div class="customize-form" id="customizeForm">
+            <div class="form-header">
+                <h3><i class="fas fa-gift"></i> Create Birthday Wishes</h3>
+                <p>Make someone's day special with personalized birthday wishes!</p>
+            </div>
+            
+            <div class="birthday-element" style="top:20%; left:10%;">🎈</div>
+            <div class="birthday-element" style="top:30%; right:15%; animation-delay:1s;">✨</div>
+            <div class="birthday-element" style="bottom:20%; left:15%; animation-delay:2s;">🎁</div>
+            <div class="birthday-element" style="bottom:30%; right:10%; animation-delay:3s;">🥳</div>
+            
+            <div class="form-group">
+                <label for="customName"><i class="fas fa-user"></i> Recipient's Name</label>
+                <input type="text" id="customName" placeholder="Enter name">
+            </div>
+            
+            <div class="form-group">
+                <label for="customPic"><i class="fas fa-camera"></i> Photo URL</label>
+                <input type="url" id="customPic" placeholder="https://example.com/photo.jpg">
+                <div class="error-message" id="urlError">Please enter a valid image URL (jpg, png, gif)</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="customMessage"><i class="fas fa-comment-alt"></i> Select Message</label>
+                <select id="customMessage" class="message-select">
+                    <option value="random">Random Message</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-eye"></i> Message Preview</label>
+                <div id="messagePreview" class="message-preview">
+                    Select a message to preview
+                </div>
+            </div>
+            
+            <div class="form-actions">
+                <button class="save-btn" id="generateBtn" disabled>
+                    <i class="fas fa-magic"></i> Create Birthday Card
+                </button>
+            </div>
+        </div>
+
+        <div class="share-section" id="shareSection">
+            <div class="share-url-container">
+                <button class="info-button" id="infoButton">
+                    <i class="fas fa-info"></i>
+                </button>
+                <div class="info-tooltip" id="infoTooltip">
+                    <p><strong>How to share:</strong></p>
+                    <p>1. Copy the link below</p>
+                    <p>2. Send it to the birthday person</p>
+                    <p>3. When they open it, they'll see your personalized birthday card!</p>
+                </div>
+                <div class="share-url-label"><i class="fas fa-link"></i> Your shareable link:</div>
+                <div class="share-url-value" id="shareUrlDisplay"></div>
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle"></i> Link copied to clipboard!
+                </div>
+            </div>
+            <div class="share-url-group">
+                <button class="copy-btn" id="copyBtn">
+                    <i class="fas fa-copy"></i> Copy Link
+                </button>
+                <button class="back-btn" id="backBtn">
+                    <i class="fas fa-edit"></i> Create Another
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="how-it-works-modal" id="howItWorksModal">
+        <div class="how-it-works-content">
+            <button class="close-how-it-works" id="closeHowItWorks">&times;</button>
+            <h3>How This Website Works</h3>
+            <p>Create personalized birthday wishes in just a few simple steps:</p>
+            <ul>
+                <li><strong>Enter the recipient's name</strong> - Appears in the greeting</li>
+                <li><strong>Add a photo URL</strong> - Use any image link or our default</li>
+                <li><strong>Select a message</strong> - Choose from pre-written or random</li>
+                <li><strong>Generate card</strong> - Create your personalized wish</li>
+                <li><strong>Save/Share</strong> - Download image or share link</li>
+            </ul>
+        </div>
+    </div>
+
+    <button class="music-control" id="musicControl" style="display: none;">
+        <i class="fas fa-music"></i>
+    </button>
+
+    <div id="saveContainer" class="hidden-for-save">
+        <div class="save-container">
+            <div class="photo-frame">
+                <img src="" alt="" id="savePic" class="birthday-pic">
+            </div>
+            <h1 class="birthday-title">Happy Birthday <span id="saveName"></span>!</h1>
+            <p id="saveMessage" class="birthday-message"></p>
+            <div class="signature">BirthdayWishesCreator.com</div>
+        </div>
+    </div>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script src="scripts/birthday.js" defer></script>
+</body>
+</html>
