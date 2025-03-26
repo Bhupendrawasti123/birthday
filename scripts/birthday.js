@@ -6,7 +6,7 @@ let birthdayMusic = null;
 async function initApp() {
     try {
         // Load configuration from GitHub
-        const response = await fetch('https://bhupendrawasti123.github.io/birthday/data/birthday/birthday.json');
+        const response = await fetch('https://bhupendrawasti.com.np/data/birthday/birthday.json');
         if (!response.ok) throw new Error('Failed to load configuration');
         birthdayData = await response.json();
         
